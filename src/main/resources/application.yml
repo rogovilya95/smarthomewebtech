@@ -1,8 +1,8 @@
 spring:
   datasource:
-    username: utczdzuqtqvspx
-    password: f58683d2216d53074944a187e4e3b4ea3044b6202d6e16272ecb248d8109f3cb
-    url: postgres://utczdzuqtqvspx:f58683d2216d53074944a187e4e3b4ea3044b6202d6e16272ecb248d8109f3cb@ec2-52-208-145-55.eu-west-1.compute.amazonaws.com:5432/debu6cf4g237t6
+    username: ${SMARTHOME_USERNAME}
+    password: ${SMARTHOME_PASSWORD}
+    url: ${SMARTHOME_URL}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
@@ -16,12 +16,14 @@ spring:
     show-sql: true # Set true for debugging
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update # (create, create-drop, validate, update)
+      ddl-auto: create-drop # (create, create-drop, validate, update)
 
     open-in-view: false
   sql:
     init:
       platform: postgres
       mode: always
+  flyway:
+   baseline-on-migrate: true
 
 
