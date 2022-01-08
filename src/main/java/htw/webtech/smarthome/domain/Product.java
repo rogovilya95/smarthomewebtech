@@ -1,5 +1,6 @@
 package htw.webtech.smarthome.domain;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,25 +10,81 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "products")
 public class Product {
-    private static final String SEQ_NAME = "product_seq";
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
-    @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private BigDecimal price;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "products_categories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Category> categories;
 
+    @Column(name = "product_name", nullable = false)
+    private String name;
+
+    @Column(name = "product_description", nullable = false)
+    private String description;
+
+    @Column(name = "product_price", nullable = false)
+    private BigDecimal price;
+
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    Category category;
+
+    public Product(String name, String description, BigDecimal price, String imageUrl) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imageUrl = imageUrl;
+    }
+
+    public Product() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

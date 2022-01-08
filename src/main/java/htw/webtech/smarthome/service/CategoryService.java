@@ -41,7 +41,7 @@ public class CategoryService {
 
     public void changeCategory(long categoryId, Category categoryChanged) {
         Category category = categoryRepository.getById(categoryId);
-        category.setCategoryName(category.getCategoryName());
+        category.setCategoryName(categoryChanged.getCategoryName());
         category.setDescription(categoryChanged.getDescription());
         category.setImageUrl(categoryChanged.getImageUrl());
         categoryRepository.save(category);
