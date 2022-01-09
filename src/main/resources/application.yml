@@ -1,8 +1,8 @@
 spring:
   datasource:
-    username: ${SMARTHOME_USERNAME}
-    password: ${SMARTHOME_PASSWORD}
-    url: ${SMARTHOME_URL}
+    username: ${DATASOURSE_USERNAME}
+    password: ${DATASOURSE_PASSWORD}
+    url: ${DATASOURSE_URL}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
