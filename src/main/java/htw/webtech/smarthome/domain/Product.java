@@ -1,14 +1,7 @@
 package htw.webtech.smarthome.domain;
 
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -24,7 +17,7 @@ public class Product {
     private String description;
 
     @Column(name = "product_price", nullable = false)
-    private BigDecimal price;
+    private double price;
 
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
@@ -33,7 +26,7 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     Category category;
 
-    public Product(String name, String description, BigDecimal price, String imageUrl) {
+    public Product(String name, String description, double price, String imageUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -64,11 +57,11 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

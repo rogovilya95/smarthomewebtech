@@ -37,7 +37,7 @@ public class ProductController {
     public ResponseEntity<APIResponse> createProduct(@RequestBody ProductDto productDto) {
         Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
         if(!optionalCategory.isPresent()) {
-            return new ResponseEntity<APIResponse>(new APIResponse(false, "This category does not exist"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new APIResponse(false, "This category does not exist"), HttpStatus.BAD_REQUEST);
         }
         productService.createProduct(productDto, optionalCategory.get());
         return new ResponseEntity<APIResponse>(new APIResponse(true, "A new product has been successfully created"), HttpStatus.CREATED);
@@ -48,22 +48,22 @@ public class ProductController {
     public ResponseEntity<APIResponse> updateProduct(@PathVariable("id") long productId, @RequestBody ProductDto productDto) throws Exception {
         Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
         if(!optionalCategory.isPresent()) {
-            return new ResponseEntity<APIResponse>(new APIResponse(false, "This category does not exist"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new APIResponse(false, "This category does not exist"), HttpStatus.BAD_REQUEST);
         }
-        if (!productService.findById(productId)) {
-            return new ResponseEntity<APIResponse>(new APIResponse(false, "This product does not exist"), HttpStatus.NOT_FOUND);
+        if (!productService.findProductById(productId)) {
+            return new ResponseEntity<>(new APIResponse(false, "This product does not exist"), HttpStatus.NOT_FOUND);
         }
         productService.changeProduct(productDto, productId);
-        return new ResponseEntity<APIResponse>(new APIResponse(true, "This product has been successfully updated"), HttpStatus.OK);
+        return new ResponseEntity<>(new APIResponse(true, "This product has been successfully updated"), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/api/products/{id}")
     public ResponseEntity<APIResponse> deleteProduct(@PathVariable Long id) {
         boolean successful = productService.deleteById(id);
         if (successful) {
-            return new ResponseEntity<APIResponse>(new APIResponse(true, "This product has been successfully deleted"), HttpStatus.OK);
+            return new ResponseEntity<>(new APIResponse(true, "This product has been successfully deleted"), HttpStatus.OK);
         } else {
-            return new ResponseEntity<APIResponse>(new APIResponse(false, "This product does not exist"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new APIResponse(false, "This product does not exist"), HttpStatus.NOT_FOUND);
         }
     }
 }

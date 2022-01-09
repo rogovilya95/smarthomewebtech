@@ -10,7 +10,7 @@ import java.util.UUID;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id")
-        private Integer id;
+        private Long id;
 
         private String token;
 
@@ -45,11 +45,11 @@ import java.util.UUID;
             this.user = user;
         }
 
-        public Integer getId() {
+        public Long getId() {
             return id;
         }
 
-        public void setId(Integer id) {
+        public void setId(Long id) {
             this.id = id;
         }
 

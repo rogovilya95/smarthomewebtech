@@ -3,9 +3,9 @@ package htw.webtech.smarthome.service;
 import htw.webtech.smarthome.domain.Category;
 import htw.webtech.smarthome.domain.Product;
 import htw.webtech.smarthome.dto.ProductDto;
+import htw.webtech.smarthome.exceptions.ProductNotExistsException;
 import htw.webtech.smarthome.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public boolean findById(long productId) {
+    public boolean findProductById(long productId) {
         return productRepository.findById(productId).isPresent();
     }
 
@@ -77,4 +77,11 @@ public class ProductService {
         return true;
     }
 
+    public Product findById(long productId) throws ProductNotExistsException {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        if (optionalProduct.isEmpty()) {
+            throw new ProductNotExistsException("product id is invalid: " + productId);
+        }
+        return optionalProduct.get();
+    }
 }

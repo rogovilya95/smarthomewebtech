@@ -47,15 +47,6 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
-    public void update(long categoryId, Category categoryChanged) {
-        var category = categoryRepository.findById(categoryId);
-        var categoryEntity = category.get();
-        categoryEntity.setCategoryName(categoryChanged.getCategoryName());
-        categoryEntity.setDescription(categoryChanged.getDescription());
-        categoryEntity.setImageUrl(categoryChanged.getImageUrl());
-        categoryRepository.save(categoryEntity);
-    }
-
     public boolean findById(long categoryId) {
         return categoryRepository.findById(categoryId).isPresent();
     }

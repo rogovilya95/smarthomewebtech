@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
@@ -30,13 +29,10 @@ public class UserService {
 
     @Transactional
     public ResponseDto signUp(SignUpDto signUpDto) {
-        // prüfen, ob der Benutzer bereits anwesend ist
         if (Objects.nonNull(userRepository.findByEmail(signUpDto.getEmail()))) {
-            // wir haben einen Benutzer
-            throw new CustomException("user already present");
+            throw new CustomException("User already present");
         }
 
-        // Hash des Passworts
         String encryptedpassword = signUpDto.getPassword();
 
         try {
@@ -44,18 +40,16 @@ public class UserService {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        // User speichern
         User user = new User(signUpDto.getFirstName(), signUpDto.getLastName(),
                 signUpDto.getEmail(), encryptedpassword);
         userRepository.save(user);
 
 
-        // token kreieren
         final AuthenticationToken authenticationToken = new AuthenticationToken(user);
 
         authenticationService.saveConfirmationToken(authenticationToken);
 
-        ResponseDto responseDto = new ResponseDto("success", "user has been successfully created");
+        ResponseDto responseDto = new ResponseDto("success", "User has been successfully created");
         return responseDto;
     }
 
@@ -69,28 +63,24 @@ public class UserService {
     }
 
     public SignInResponseDto signIn(SignInDto signInDto) {
-        // find user by email
         User user = userRepository.findByEmail(signInDto.getEmail());
 
         if (Objects.isNull(user)) {
-            throw new AuthenticationFailException("user is not valid");
+            throw new AuthenticationFailException("User is not valid");
         }
 
-        // Hash des Passworts
         try {
             if (!user.getPassword().equals(hashPassword(signInDto.getPassword()))) {
-                throw new AuthenticationFailException("password is wrong");
+                throw new AuthenticationFailException("Password is wrong");
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
 
-        // password in DB vergleichen
         AuthenticationToken token = authenticationService.getToken(user);
 
-        // den Token zurückgeben
         if (Objects.isNull(token)) {
-            throw new CustomException("token doesn't exist");
+            throw new CustomException("Token doesn't exist");
         }
 
         return new SignInResponseDto("success", token.getToken());

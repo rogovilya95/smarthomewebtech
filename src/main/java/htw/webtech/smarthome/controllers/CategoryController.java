@@ -39,16 +39,16 @@ public class CategoryController {
             return new ResponseEntity<APIResponse>(new APIResponse(false, "This category does not exist"), HttpStatus.NOT_FOUND);
         }
         categoryService.changeCategory(categoryId, category);
-        return new ResponseEntity<APIResponse>(new APIResponse(true, "This category has been successfully updated"), HttpStatus.OK);
+        return new ResponseEntity<>(new APIResponse(true, "This category has been successfully updated"), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/api/categories/{id}")
     public ResponseEntity<APIResponse> deleteCategory(@PathVariable Long id) {
         boolean successful = categoryService.deleteById(id);
         if (successful) {
-            return new ResponseEntity<APIResponse>(new APIResponse(true, "This category has been successfully deleted"), HttpStatus.OK);
+            return new ResponseEntity<>(new APIResponse(true, "This category has been successfully deleted"), HttpStatus.OK);
         } else {
-            return new ResponseEntity<APIResponse>(new APIResponse(false, "This category does not exist"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new APIResponse(false, "This category does not exist"), HttpStatus.NOT_FOUND);
         }
     }
 

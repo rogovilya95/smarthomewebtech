@@ -3,7 +3,7 @@ name: CI
 on: [ push ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,7 +12,5 @@ jobs:
         with:
           distribution: "adopt"
           java-version: 16
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
       - name: clean build
-        run: ./gradlew clean build --info --stacktrace
+        run: ./gradlew clean test --info --stacktrace

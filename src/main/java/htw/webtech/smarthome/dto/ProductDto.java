@@ -8,7 +8,7 @@ public class ProductDto {
     private Long id;
     private String name;
     private String description;
-    private BigDecimal price;
+    private double price;
     private String imageUrl;
     private Long categoryId;
 
@@ -39,11 +39,11 @@ public class ProductDto {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
