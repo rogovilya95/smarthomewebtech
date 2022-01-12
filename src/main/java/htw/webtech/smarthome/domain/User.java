@@ -24,25 +24,36 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Enumerated(EnumType.STRING)
+/*    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user",
             fetch = FetchType.LAZY)
-    private List<Order> orders;
+    private List<Order> orders;*/
 
-    public User(String firstName, String lastName, String email, String password, Role role, List<Order> orders) {
+/*    public User(String firstName, String lastName, String email, String password, Role role, List<Order> orders) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
         this.orders = orders;
+    }*/
+
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
 
-    public void setId(long id) {
+    public User() {
+    }
+
+
+/*    public void setId(long id) {
         this.id = id;
     }
 
@@ -60,7 +71,7 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
-    }
+    }*/
 
     public long getId() {
         return id;
@@ -98,3 +109,4 @@ public class User {
         this.password = password;
     }
 }
+
